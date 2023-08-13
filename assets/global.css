@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+:root {
+  --black: #000;
+  --white: #FFF;
+  --red: #EB2A48;
+  --blue: #71C7FF;
+  --green: #62AA2A;
+  --light-green: #88DF45;
+  --pink: #FF4487;
+
+  // BRUTAL
+  --brutal-border-color: var(--black);
+  --brutal-shadow-color: var(--brutal-border-color);
+  --brutal-border-size: .2rem;
+  --brutal-shadow-size: .25rem;
+  --brutal-border: var(--brutal-border-size) solid var(--brutal-border-color);
+  --brutal-shadow: var(--brutal-shadow-size) var(--brutal-shadow-size) var(--brutal-shadow-color);
+
+  --text-border-color: var(--black);
+  --text-border-size: .2rem;
+}
+
+.font-itim {
+  font-family: 'Itim', cursive;
+}
