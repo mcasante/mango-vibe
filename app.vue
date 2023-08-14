@@ -4,10 +4,10 @@
 
 <template>
   <NuxtLayout>
-      <NuxtPage :transition="{
-        name: 'blur',
-        mode: 'out-in'
-      }" />
+    <NuxtPage :transition="{
+      name: 'blur',
+      mode: 'out-in'
+    }" />
   </NuxtLayout>
 </template>
 

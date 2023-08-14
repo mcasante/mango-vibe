@@ -1,5 +1,3 @@
-import plugin from 'tailwindcss/plugin'
-// import { flattenColorPalette } from 'tailwindcss/lib/utils'
 import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette"
 
 const transform = `translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y))
@@ -14,6 +12,24 @@ module.exports = {
       2: '2',
       4: '4',
       8: '8',
+    },
+    extend: {
+      colors: {
+        'mango-pink': {
+          50: '#ff66bc',
+          100: '#ff4bba',
+        },
+        'mango-amber': {
+          50: '#ffb88a',
+          100: '#ffb07f',
+        },
+        'mango-salmon': {
+          50: '#ff939b',
+          100: '#ff8293',
+        },
+        'mango-green': '#e1e881',
+        'mango-yellow': '#f9f871',
+      }
     }
   },
   plugins: [

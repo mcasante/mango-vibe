@@ -13,17 +13,9 @@ const activeColor = ref('#f9a8d4')
 const canvas = ref()
 const image = ref()
 const container = ref()
-const slider = ref()
-const thumb = ref()
 const { width } = useElementSize(container)
-const { width: sliderWidth } = useElementSize(slider)
 
-const max = computed(() => sliderWidth.value && thumb.value
-  ? sliderWidth.value - thumb.value.offsetWidth
-  : 0)
-
-const moved = useClamp(0, 0, max)
-
+const moved = useClamp(0, 0, 100)
 
 const model = reactive({
   scale: 1,
@@ -85,7 +77,7 @@ const drawImage = (scale: number) => {
 const updateScale = (value: number) => {
   const minScale = 1
   const maxScale = 2
-  const sliderPercentage = value / sliderWidth.value
+  const sliderPercentage = value / 100
   const scaleRange = maxScale - minScale
   const newScale = minScale + sliderPercentage * scaleRange
   model.scale = newScale
@@ -144,8 +136,13 @@ const updateColor = (color: string) => {
 </script>
 
 <template>
-  <div ref="container" class="pinch-zoom-canvas bg-amber-300">
-    <div class="flex flex-col gap-3 mr-4 h-full justify-between">
+  <div ref="container" class="pinch-zoom-canvas pt-0">
+    <div class="mt-4 flex flex-col gap-3 mr-4 h-full justify-between">
+      <MButton class="!bg-red-500 mb-10 w-8 h-8 text-white font-bold z-99 !p-1" @click="emit('update:imageSrc', null)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </MButton>
       <m-button
         v-for="color in colors"
         :key="color"
@@ -159,19 +156,10 @@ const updateColor = (color: string) => {
     </div>
     <div class="max-w-90 flex flex-col items-stretch gap-4">
       <div class="relative rounded-lg p-2 mt-4 bg-white brutal">
-        <MButton class="bg-red-500! absolute! w-10 h-10 text-white rounded-full font-bold z-99 right--5 top--5 p-1!" @click="emit('update:imageSrc', null)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </MButton>
         <canvas ref="canvas" class="b-1 b-black rounded-lg w-full" />
       </div>
-      <div ref="slider" class="slider bg-black w-full h-4 flex b-4 b-black rounded items-end">
-        <div
-          ref="thumb"
-          v-motion="'thumb'"
-          class="slider__thumb cursor-grab brutal top-2.5 relative bg-amber-500 rounded w-8 h-8"
-        />
+      <div class="dark">
+        <URange size="lg" color="lime" :min="0" :max="100" v-model="moved" />
       </div>
     </div>
   </div>
@@ -181,7 +169,6 @@ const updateColor = (color: string) => {
 .pinch-zoom-canvas {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
 }

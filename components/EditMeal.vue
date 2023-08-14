@@ -5,10 +5,18 @@ const route = useRoute()
 // When accessing /posts/1, route.params.id will be 1
 // console.log(route.params.id)
 
-const model = reactive({
-    name: '',
-    photo: null,
-    timestamp: Date.now(),
+interface MealForm {
+  name: string
+  photo: string | ArrayBuffer | null
+  timestamp: number
+}
+
+const props = defineProps<{
+  model: MealForm
+}>()
+
+const modelCopy = reactive({
+  ...props.model,
 })
 
 interface Perceptions {
@@ -80,7 +88,7 @@ const formatted = computed(() => {
 <template>
   <div>
     <m-input
-      v-model:value="model.name"
+      v-model:value="modelCopy.name"
       label="Meal name"
       name="mealName"
       type="text"
@@ -91,10 +99,10 @@ const formatted = computed(() => {
       <m-button
         v-for="key of keys" :key="key"
         class="rounded !bg-amber-300"
-        :class="{ '!brutal-translate !shadow-none': activeKey === key && !isCollapsed }"
+        :class="{ '!shadow-none !brutal-translate !transition-none': activeKey === key && !isCollapsed }"
         @click="activate(key)"
       >
-        <h4 class="text-4 text-center flex gap-x-1.5 justify-center items-center flex-row">
+        <h4 class="text-black text-center flex gap-x-1.5 justify-center items-center flex-row">
           {{ displayMap[key].label }}:
           <small class="bg-white flex items-center justify-center rounded text-pink-500 px-1 text-4">{{ formatted[key] }}</small>
         </h4>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import mealsJson from '~/mock/meals.json'
-import MButton from '~/components/MButton.vue'
+import MButton from '~/components/atoms/MButton.vue'
 
 export interface Meal {
   id: number
@@ -96,7 +96,7 @@ const updateCarousel = (item: any) => {
     <div>
       <MCarousel
         v-model:active.sync="currentIndex"
-        class="bg-repeat bg-pink-300" :max-width="250" :items="mealItems"
+        class="bg-repeat bg-mango-amber-100" :max-width="250" :items="mealItems"
         >
         <!-- :style="{ backgroundImage: `url(${gridSvg})`, backgroundSize: '50px 50px' }" -->
         <template #default="{ item, isSwiping, index }">
@@ -117,7 +117,7 @@ const updateCarousel = (item: any) => {
         </template>
       </MCarousel>
     </div>
-    <div class="info rounded-t-7 grow w-full max-w-192 mx-auto bg-amber-300 border-4 border-black px-4 py-4">
+    <div class="info rounded-t-7 grow w-full max-w-192 mx-auto bg-white border-t-[3px] border-black px-4 py-4">
       <MealData :meal="currentMeal" @remove-tag="handleRemove">
         <template #controls>
           <CarouselControls class="mt-2" />

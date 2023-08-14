@@ -65,7 +65,7 @@ const today = computed(() => new Date().toLocaleDateString('en-US', { weekday: '
   <div class="meal-data">
     <div class="flex justify-between gap-2 items-start">
       <div>
-        <h2 class="font-itim font-bold text-6 text-white text-border-[1.5px] text-border-[rgba(0,0,0,1)]">
+        <h2 class="font-itim font-bold text-2xl text-mango-green text-border-[2px] text-border-black">
           {{ meal ? meal.name : 'Overview' }}
         </h2>
         <small class="time">

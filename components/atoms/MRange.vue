@@ -44,14 +44,14 @@ watch(valueCopy, () => {
 <template>
   <div class="w-full max-w-xs">
     <input v-model.number="valueCopy" v-bind="$attrs" type="range" min="1" max="10" class="range mb-4!" step="1">
-    <div class="w-full flex justify-between text-xs px-3.4">
+    <div class="w-full flex justify-between text-xs px-[.85rem]">
       <span
         v-for="i in 10"
         :key="i" class=""
         :class="{
-          ' text-5': i === 5,
-          'text-pink-500!': i === +valueCopy,
-          // 'text-gray-500/50': i < valueCopy,
+          'text-[1.25rem]': i === 5,
+          '!text-pink-500': i === +valueCopy,
+          'text-gray-500/50': i < valueCopy,
         }"
       >|</span>
     </div>
@@ -63,24 +63,24 @@ input[type=range] {
   @apply w-full my-1 bg-transparent appearance-none;
 
   &::-webkit-slider-runnable-track {
-    @apply bg-black border-[3px] border-black rounded-[10px] h-3 cursor-pointer;
+    @apply bg-black border-[3px] border-black rounded-[2.5rem] h-3 cursor-pointer;
   }
 
   &::-webkit-slider-thumb {
-    @apply bg-pink-500 border-[3px] border-black rounded-md w-7 h-7 -mt-3 cursor-pointer;
+    @apply bg-pink-500 brutal border-[3px] border-black rounded-md w-7 h-7 -mt-3 cursor-pointer;
     -webkit-appearance: none;
   }
 
   &::-moz-range-track {
-    @apply bg-black border-[3px] border-black rounded-[10px] h-3 cursor-pointer;
+    @apply bg-black border-[3px] border-black rounded-[2.5rem] h-3 cursor-pointer;
   }
 
   &::-moz-range-thumb {
-    @apply bg-pink-500 border-[3px] border-black rounded-md w-7 h-7 cursor-pointer;
+    @apply bg-pink-500 brutal border-[3px] border-black rounded-md w-7 h-7 cursor-pointer;
   }
 
   &::-ms-track {
-    @apply bg-transparent border-transparent border-b-2 border-t-2 h-3 cursor-pointer;
+    @apply bg-transparent border-transparent border-b-[3px] border-t-[3px] h-3 cursor-pointer;
   }
 
   &::-ms-fill-lower {
@@ -92,7 +92,7 @@ input[type=range] {
   }
 
   &::-ms-thumb {
-    @apply bg-pink-500 border-[3px] border-black rounded-md w-7 h-7 cursor-pointer;
+    @apply bg-pink-500 brutal border-[3px] border-black rounded-md w-7 h-7 cursor-pointer;
     margin-top: 0;
     /* Needed to keep the Edge thumb centred */
     -webkit-appearance: none;
