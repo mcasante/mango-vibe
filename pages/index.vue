@@ -20,10 +20,9 @@ function remoteLoadMeals(): Promise<Meal[]> {
   })
 }
 
+const date = ref(new Date());
+const label = computed(() => date.value.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }))
 const picture = useState<string | ArrayBuffer | null>('picture', () => null)
-const router = useRouter()
-// interface FormatedMeal extends Meal { time: string }
-// type MealItems = FormatedMeal | { add: true }
 
 const getTime = (timestamp: number): string => new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })
 const mapMeal = (meal: Meal) => ({
@@ -98,7 +97,6 @@ const updateCarousel = (item: any) => {
         v-model:active.sync="currentIndex"
         class="bg-repeat bg-mango-amber-100" :max-width="250" :items="mealItems"
         >
-        <!-- :style="{ backgroundImage: `url(${gridSvg})`, backgroundSize: '50px 50px' }" -->
         <template #default="{ item, isSwiping, index }">
           <MCaptureImage v-if="item.add" @capture="handleFile" />
           <div v-else :style="{ transform: isSwiping ? 'none' : randomTilt() }" class="relative transition duration-[250] border-[3px] p-2 pb-1 bg-white rounded-lg h-full overflow-hidden border-black" @click="updateCarousel(item)">
@@ -118,11 +116,21 @@ const updateCarousel = (item: any) => {
       </MCarousel>
     </div>
     <div class="info rounded-t-7 grow w-full max-w-192 mx-auto bg-white border-t-[3px] border-black px-4 py-4">
-      <MealData :meal="currentMeal" @remove-tag="handleRemove">
+      <MealData v-if="currentMeal" :meal="currentMeal" @remove-tag="handleRemove">
         <template #controls>
           <CarouselControls class="mt-2" />
         </template>
       </MealData>
+      <template v-else>
+        <div class="h-full flex justify-center">
+          <UPopover :popper="{ placement: 'auto' }">
+            <UButton size="xl" icon="i-heroicons-calendar-days-20-solid" :label="label" />
+            <template #panel="{ close }">
+              <vue-date-picker v-model="date" @update:model-value="close" inline auto-apply />
+            </template>
+          </UPopover>
+        </div>
+      </template>
     </div>
   </section>
 </template>

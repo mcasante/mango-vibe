@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import mealsJson from '~/mock/meals.json'
+
 interface Meal {
   id: number
   timestamp: number
@@ -7,8 +9,6 @@ interface Meal {
   notes?: string
   tags?: string[]
 }
-const props = defineProps<{ id?: string }>()
-const picture = useState<string | ArrayBuffer | null>('picture')
 
 interface MealForm {
   name: string
@@ -16,12 +16,21 @@ interface MealForm {
   timestamp: number
 }
 
-const loadMealData = async (id: string): Promise<Meal | null> => null
+const route = useRoute()
+const picture = useState<string | ArrayBuffer | null>('picture')
+
+const loadMealData = async (id: string): Promise<Meal | undefined> => new Promise((resolve) => {
+  setTimeout(() => {
+    const meals = mealsJson
+    const found = meals.find(m => m.id === Number(id))
+    resolve(found)
+  }, 1000)
+})
 
 const mealData = await (async () => {
-  if (!props.id)
+  if (!route.params?.id)
     return
-  return await loadMealData(props.id)
+  return await loadMealData(route.params.id as string)
 })()
 
 const mealForm = reactive<MealForm>({

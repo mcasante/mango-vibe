@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   label?: string
   placeholder?: string
   name: string
@@ -7,10 +7,19 @@ defineProps<{
   value: string
 }>()
 
+const emit = defineEmits<{
+  (event: 'update:value', value: string): void
+}>()
+
 const input = ref()
 const { focused } = useFocus(input)
 
-const valueCopy = ref('')
+const valueCopy = ref(props.value)
+
+const handleInput = (e: Event) => {
+  valueCopy.value = (e.target as HTMLInputElement).value
+  emit('update:value', valueCopy.value)
+}
 </script>
 
 <template>
@@ -18,7 +27,7 @@ const valueCopy = ref('')
     :class="{ 'border-solid brutal brutal--translate bg-white!': focused }"
     class="brutal-translate relative py-2 px-4 rounded-lg transition border-black border-[3px] border-dashed bg-white/80"
   >
-    <m-transition-expand>
+    <m-transition-expand name="blur">
       <label
         v-if="label && !valueCopy.length"
         ref="label"
@@ -29,7 +38,7 @@ const valueCopy = ref('')
       </label>
     </m-transition-expand>
     <input
-      :id="name" ref="input" v-model="valueCopy" :type="type"
+      :id="name" ref="input" :value="props.value" @input="handleInput" :type="type"
       :placeholder="placeholder"
       class="bg-transparent placeholder-black/20 text-5 font-bold outline-none w-full h-full"
     >

@@ -1,14 +1,15 @@
 <script setup lang="ts">
 
-const route = useRoute()
-
-// When accessing /posts/1, route.params.id will be 1
-// console.log(route.params.id)
-
 interface MealForm {
   name: string
   photo: string | ArrayBuffer | null
   timestamp: number
+}
+
+interface Perceptions {
+  mood: number
+  hunger: number
+  satiety: number
 }
 
 const props = defineProps<{
@@ -19,11 +20,13 @@ const modelCopy = reactive({
   ...props.model,
 })
 
-interface Perceptions {
-  mood: number
-  hunger: number
-  satiety: number
-}
+watchEffect(() => {
+  props.model.name = modelCopy.name
+  props.model.photo = modelCopy.photo
+  props.model.timestamp = modelCopy.timestamp
+})
+
+
 const perceptions = reactive<Perceptions>({
   mood: 5,
   hunger: 5,
