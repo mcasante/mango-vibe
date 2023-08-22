@@ -25,7 +25,7 @@ const handleInput = (e: Event) => {
 <template>
   <div
     :class="{ 'border-solid brutal brutal--translate bg-white!': focused }"
-    class="brutal-translate relative py-2 px-4 rounded-lg transition border-black border-[3px] border-dashed bg-white/80"
+    class="brutal-translate flex flex-col relative py-2 px-4 rounded-lg transition border-black border-[3px] border-dashed bg-white/80"
   >
     <m-transition-expand name="blur">
       <label

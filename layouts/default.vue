@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-  const isOpen = ref(false)
+const isOpen = ref(false)
 
-  defineShortcuts({
-    escape: {
-      usingInput: true,
-      whenever: [isOpen],
-      handler: () => { isOpen.value = false }
-    }
-  })
+defineShortcuts({
+  escape: {
+    usingInput: true,
+    whenever: [isOpen],
+    handler: () => { isOpen.value = false }
+  }
+})
 </script>
 
 <template>

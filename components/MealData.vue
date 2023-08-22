@@ -66,16 +66,16 @@ const today = computed(() => new Date().toLocaleDateString('en-US', { weekday: '
     <div class="flex justify-between gap-2 items-start">
       <div>
         <h2 class="font-itim font-bold text-2xl text-mango-green text-border-[2px] text-border-black">
-          {{ meal ? meal.name : 'Overview' }}
+          {{ meal ? meal.name : today }}
         </h2>
         <small class="time">
-          {{ meal ? meal.time : today }}
+          {{ meal ? meal.time : 'Overview' }}
         </small>
       </div>
       <slot name="controls" />
     </div>
 
-    <m-transition-expand>
+    <m-transition-expand name="blur">
       <div v-if="meal">
         <div class="flex flex-wrap gap-2 mt-2">
           <MTag
@@ -106,7 +106,7 @@ const today = computed(() => new Date().toLocaleDateString('en-US', { weekday: '
   </div>
   <m-modal v-if="meal" v-model:visible="addTagModal.visible">
     <h1 class="text-2xl font-bold mb-4">
-      Get started
+      Tags
     </h1>
 
     <edit-tags :selected="meal.tags || []" />

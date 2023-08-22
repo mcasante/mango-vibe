@@ -4,7 +4,6 @@ const props = withDefaults(defineProps<{
   closable?: boolean
 }>(), { closable: true })
 
-// declarer emit
 const emit = defineEmits<{
   (e: 'update:visible', visible: boolean): void
 }>()

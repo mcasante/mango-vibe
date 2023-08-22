@@ -21,8 +21,8 @@ function remoteLoadMeals(): Promise<Meal[]> {
 }
 
 const date = ref(new Date());
-const label = computed(() => date.value.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }))
 const picture = useState<string | ArrayBuffer | null>('picture', () => null)
+const route = useRoute()
 
 const getTime = (timestamp: number): string => new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })
 const mapMeal = (meal: Meal) => ({
@@ -116,21 +116,24 @@ const updateCarousel = (item: any) => {
       </MCarousel>
     </div>
     <div class="info rounded-t-7 grow w-full max-w-192 mx-auto bg-white border-t-[3px] border-black px-4 py-4">
-      <MealData v-if="currentMeal" :meal="currentMeal" @remove-tag="handleRemove">
+      <MealData :meal="currentMeal" @remove-tag="handleRemove">
         <template #controls>
           <CarouselControls class="mt-2" />
         </template>
       </MealData>
-      <template v-else>
-        <div class="h-full flex justify-center">
-          <UPopover :popper="{ placement: 'auto' }">
-            <UButton size="xl" icon="i-heroicons-calendar-days-20-solid" :label="label" />
-            <template #panel="{ close }">
-              <vue-date-picker v-model="date" @update:model-value="close" inline auto-apply />
-            </template>
-          </UPopover>
+      <MTransitionExpand name="blur">
+        <div v-if="!currentMeal" class="mt-4 h-full flex justify-center">
+          <vue-date-picker 
+            v-model="date"
+            :enable-time-picker="false"
+            :max-date="new Date()"
+            inline
+            auto-apply
+            prevent-min-max-navigation
+            ignore-time-validation
+          />
         </div>
-      </template>
+      </MTransitionExpand>
     </div>
   </section>
 </template>
