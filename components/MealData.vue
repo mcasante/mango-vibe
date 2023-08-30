@@ -121,12 +121,12 @@ const today = computed(() => new Date().toLocaleDateString('en-US', { weekday: '
     </p>
     <hr class="border border-black my-4">
     <div class="flex justify-end gap-2">
-      <MButton class="bg-gray-200! text-gray-700! rounded font-bold" @click="cancel">
+      <UButton class="bg-gray-200! text-gray-700! rounded font-bold" @click="cancel">
         Cancel
-      </MButton>
-      <MButton class="bg-pink-500! hover:shadow-black! text-white rounded font-bold" @click="confirm">
+      </UButton>
+      <UButton class="bg-pink-500! hover:shadow-black! text-white rounded font-bold" @click="confirm">
         Confirm
-      </MButton>
+      </UButton>
     </div>
   </m-modal>
 </template>

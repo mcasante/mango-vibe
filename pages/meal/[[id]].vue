@@ -69,12 +69,12 @@ const resetImage = () => {
           Done?
         </span>
         <div class="flex gap-1 justify-end w-full items-center">
-          <MButton class="bg-gray-200! text-gray-700! rounded font-bold">
+          <UButton class="bg-gray-200! text-gray-700! rounded font-bold">
             nah, drop
-          </MButton> <span class="text-8 inline-block ml-.5">|</span>
-          <MButton class="bg-pink-500! hover:shadow-black! text-white! rounded font-bold">
+          </UButton> <span class="text-8 inline-block ml-.5">|</span>
+          <UButton class="bg-pink-500! hover:shadow-black! text-white! rounded font-bold">
             Yessir, save!
-          </MButton>
+          </UButton>
         </div>
       </div>
     </div>

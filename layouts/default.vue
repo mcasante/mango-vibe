@@ -16,9 +16,7 @@ defineShortcuts({
       <ULink to="/">
         <NuxtPicture width="96" src="/images/mango-vibe-logo.svg" />
       </ULink>
-      <MButton size="lg" @click="isOpen = true">
-        <UIcon name="i-heroicons-bars-3" />
-      </MButton>
+      <UButton size="lg" icon="i-heroicons-bars-3" @click="isOpen = true" />
     </div>
     <UContainer class="grow w-full" :ui="{ padding: 0 }">
       <Suspense>
@@ -37,7 +35,7 @@ defineShortcuts({
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
               Slideover
             </h3>
-            <MButton class="!bg-red-500 w-8 h-8 text-white font-bold !p-1" color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
+            <UButton class="!bg-red-500 w-8 h-8 text-white font-bold p-[2px]" color="gray" variant="brutal" icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
           </div>
         </template>
 

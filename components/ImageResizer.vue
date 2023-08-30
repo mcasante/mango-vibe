@@ -138,12 +138,12 @@ const updateColor = (color: string) => {
 <template>
   <div ref="container" class="pinch-zoom-canvas pt-0">
     <div class="mt-4 flex flex-col gap-3 mr-4 h-full justify-between">
-      <MButton class="!bg-red-500 mb-10 w-8 h-8 text-white font-bold z-99 !p-1" @click="emit('update:imageSrc', null)">
+      <UButton class="!bg-red-500 mb-10 w-8 h-8 text-white font-bold z-99 !p-1" @click="emit('update:imageSrc', null)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12" />
         </svg>
-      </MButton>
-      <m-button
+      </UButton>
+      <UButton
         v-for="color in colors"
         :key="color"
         class="w-8 h-8 rounded brutal"

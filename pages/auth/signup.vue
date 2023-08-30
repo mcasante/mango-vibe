@@ -1,5 +1,11 @@
 <script lang="ts" setup>
 import type { FormError } from '@nuxthq/ui/dist/runtime/types'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
+const auth = useFirebaseAuth()!
+const toast = useToast()
+
+const loading = ref(false)
 
 definePageMeta({
   title: 'Sign Up',
@@ -32,10 +38,25 @@ const validate = (state: any): FormError[] => {
 const form = ref()
 
 async function submit () {
-  await form.value!.validate()
-  // Do something with state.value
-}
+  loading.value = true
+  try {
+    await form.value!.validate()
 
+    await createUserWithEmailAndPassword(auth, state.value.email!, state.value.password!)
+      .catch((reason) => {
+        toast.add({
+          id: 'signup_error',
+          title: 'Error',
+          description: reason.message,
+          icon: 'i-heroicons-x-circle',
+          color: 'rose'
+        })
+        console.error('Failed signinRedirect', reason)
+      })
+  } finally {
+    loading.value = false
+  }
+}
 
 </script>
 
@@ -60,6 +81,7 @@ async function submit () {
       >
         <UFormGroup required size="lg" label="Name" name="name">
           <UInput 
+          :loading="loading"
           v-model="state.name" 
           placeholder="Your name or nickname"
           icon="i-heroicons-user-circle"
@@ -68,6 +90,7 @@ async function submit () {
         
         <UFormGroup required size="lg" label="Email" name="email">
           <UInput 
+            :loading="loading"
             v-model="state.email" 
             placeholder="Your email"
             icon="i-heroicons-identification"
@@ -76,6 +99,7 @@ async function submit () {
 
         <UFormGroup required size="lg" label="Password" name="password">
           <UInput 
+            :loading="loading"
             v-model="state.password" 
             placeholder="Your password"
             icon="i-heroicons-key"
@@ -83,7 +107,7 @@ async function submit () {
           />
         </UFormGroup>
 
-        <UButton disabled class="cursor-not-allowed" block size="lg" @click="submit">
+        <UButton :loading="loading" class="cursor-not-allowed" block size="lg" @click="submit">
           <template #trailing>
             <UIcon name="i-heroicons-arrow-right-20-solid" />
           </template>

@@ -23,6 +23,8 @@ onMounted(() => {
       name: 'blur',
       mode: 'out-in'
     }" />
+    
+    <UNotifications />
   </NuxtLayout>
 </template>
 

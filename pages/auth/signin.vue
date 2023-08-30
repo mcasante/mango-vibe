@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import type { FormError } from '@nuxthq/ui/dist/runtime/types'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
+
 
 definePageMeta({
   title: 'Sign Up',
   description: 'Sign up to Mango Vibe',
   layout: 'auth',
 })
+
+const auth = useFirebaseAuth()!
+
 
 const authProviders = [
   {
@@ -30,10 +36,16 @@ const validate = (state: any): FormError[] => {
 const form = ref()
 
 async function submit () {
-  await form.value!.validate()
-  // Do something with state.value
-}
+  try {
+    await form.value!.validate()
 
+    // Do something with state.value
+    console.log('here')
+    // createUserWithEmailAndPassword(auth, state.value.email, state.value.password)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 </script>
 
